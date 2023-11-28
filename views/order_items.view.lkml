@@ -38,4 +38,17 @@ view: order_items {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
   }
+  measure: sum_sale {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+  measure: new_measure {
+    type: number
+    sql: case when sum(${sale_price}) then ((${sale_price})*10.1/sum(${sale_price})) else null end  ;;
+    html: {%if new_measure._value >=0 %}
+    <p>{{new_measure._value |times:100|round:1}}%</p>
+    {% else %}
+    <p style ='color:#EA4335;' >({{new_measure._value |times:-100|round:1}}%)<p>
+    {% endif %};;
+  }
 }
