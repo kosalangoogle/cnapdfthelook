@@ -42,13 +42,21 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
   }
-  measure: new_measure {
+
+  measure: sum_saless {
     type: number
-    sql: case when sum(${sale_price}) then ((${sale_price})*10.1/sum(${sale_price})) else null end  ;;
-    html: {%if new_measure._value >=0 %}
-    <p>{{new_measure._value |times:100|round:1}}%</p>
+    sql: CASE WHEN SUM(${TABLE}.sale_price) > 50 THEN (SUM(${TABLE}.id)/SUM(${TABLE}.sale_price)) ELSE NULL END ;;
+    html: {% if sum_saless._value >= 0 %}
+    <p>{{sum_saless._value|times:100|round:1}}%</p>
     {% else %}
-    <p style ='color:#EA4335;' >({{new_measure._value |times:-100|round:1}}%)<p>
-    {% endif %};;
+    <p style = "color: #EA4335;">({{sum_saless._value|times:-100|round:1}}%)<p>
+    {% endif %} ;;
   }
+
+
+
+  # measure: new_measure {
+  #   type: number
+  #   s
+  # }
 }
