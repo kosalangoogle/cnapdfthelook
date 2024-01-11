@@ -45,4 +45,25 @@ view: order_items {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
   }
+  measure: sum_sale {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
+  measure: sum_saless {
+    type: number
+    sql: CASE WHEN SUM(${TABLE}.sale_price) > 50 THEN (SUM(${TABLE}.id)/SUM(${TABLE}.sale_price)) ELSE NULL END ;;
+    html: {% if sum_saless._value >= 0 %}
+    <p>{{sum_saless._value|times:100|round:1}}%</p>
+    {% else %}
+    <p style = "color: #EA4335;">({{sum_saless._value|times:-100|round:1}}%)<p>
+    {% endif %} ;;
+  }
+
+
+
+  # measure: new_measure {
+  #   type: number
+  #   s
+  # }
 }

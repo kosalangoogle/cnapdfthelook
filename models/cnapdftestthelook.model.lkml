@@ -105,6 +105,12 @@ explore: inventory_items {
 }
 
 explore: orders {
+  always_filter: {
+    filters: {
+      field: orders.status
+    }
+  }
+
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -117,6 +123,7 @@ explore: order_items {
     field: products.brand
     user_attribute: cedis_filter
   }
+
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -178,7 +185,14 @@ explore: persons {}
 
 explore: persons2 {}
 
-explore: products {}
+explore: products {
+
+}
+
+
+
+
+
 
 explore: salary {
   join: dept {
