@@ -34,6 +34,13 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+
+  measure: test {
+    type: average
+   sql: ${sale_price} / 86400000.0 ;;
+      #value_format: "[h]:mm:ss"
+  }
+
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
