@@ -3,6 +3,10 @@ connection: "thelook"
 # include all the views
 include: "/views/**/*.view.lkml"
 
+include: "/Jack_dashboard2.dashboard.lookml"
+
+include: "/test2222.dashboard.lookml"
+
 datagroup: cnapdftestthelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -101,6 +105,12 @@ explore: inventory_items {
 }
 
 explore: orders {
+  always_filter: {
+    filters: {
+      field: orders.status
+    }
+  }
+
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -110,9 +120,12 @@ explore: orders {
 
 explore: order_items {
   access_filter: {
+
     field: orders.status
     user_attribute: test_kk
   }
+
+
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -178,7 +191,14 @@ explore: persons {}
 
 explore: persons2 {}
 
-explore: products {}
+explore: products {
+
+}
+
+
+
+
+
 
 explore: salary {
   join: dept {

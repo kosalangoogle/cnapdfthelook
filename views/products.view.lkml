@@ -10,7 +10,8 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
-  }
+   }
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;

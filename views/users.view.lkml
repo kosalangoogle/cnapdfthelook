@@ -18,8 +18,14 @@ view: users {
   dimension: country {
     type: string
     map_layer_name: countries
+    link: {
+      label: "Google"
+      url: "http://www.google.com/search?q={{ value }}"
+    }
     sql: ${TABLE}.country ;;
   }
+
+
   dimension_group: created {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -44,11 +50,22 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    link: {
+      label: "Google"
+      url: "http://www.google.com/search?q={{ value }}"
+  }
   }
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
+
+  dimension: foo {
+    type: string
+   # sql: "foo      bar" , "bar     foo" ;;
+    sql: "foo      bar" ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -57,15 +74,15 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	first_name,
-	last_name,
-	events.count,
-	orders.count,
-	saralooker.count,
-	sindhu.count,
-	user_data.count
-	]
+  id,
+  first_name,
+  last_name,
+  events.count,
+  orders.count,
+  saralooker.count,
+  sindhu.count,
+  user_data.count
+  ]
   }
 
 }
